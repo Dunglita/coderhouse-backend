@@ -6,7 +6,18 @@ class Contenedor {
     this.path = path;
   }
 
-  async save(product) {
+  async fileExists() {
+    try {
+      await fs.promises.access(this.path);
+      console.log("File exists");
+      return;
+    } catch {
+      fs.writeFileSync(this.path, "");
+      console.log("File does not exist, creating a new one");
+      return;
+    }
+  }
+  save(product) {
     fs.readFile(this.path, (error, data) => {
       if (error) {
         console.log(error);
@@ -21,12 +32,12 @@ class Contenedor {
           });
           product["id"] = key + 1;
           fs.writeFileSync(this.path, JSON.stringify([...parsedData, product]));
-          console.log("Verificamos el reterno" + " " + product.id);
+          console.log(`Returned id: ${product.id}`);
           return product.id;
         } else {
           product["id"] = 1;
           fs.writeFileSync(this.path, JSON.stringify([product]));
-          console.log("Verificamos el reterno " + " " + product.id);
+          console.log(`Returned id: ${product.id}`);
           return product.id;
         }
       }
@@ -41,7 +52,7 @@ class Contenedor {
         let parsedData = JSON.parse(data);
         let item = parsedData.find((item) => item.id === id);
         if (!item) {
-          console.log("No object with specified id");
+          console.log("Can't find object with id " + id);
           return null;
         } else {
           console.log(item);
@@ -75,26 +86,23 @@ class Contenedor {
         let parsedData = JSON.parse(data);
         let item = parsedData.find((item) => item.id === id);
         if (!item) {
-          console.log("No object with specified id");
+          console.log("Can't delete object with id " + id);
         } else {
           let index = parsedData.indexOf(item);
           parsedData.splice(index, 1);
           fs.writeFileSync(this.path, JSON.stringify(parsedData));
+          console.log("Object deleted successfully");
         }
       }
     });
   }
-
   deleteAll() {
-    fs.readFile(this.path, (error, data) => {
-      if (error) {
-        console.log(error);
-      } else {
-        let parsedData = JSON.parse(data);
-        parsedData.length = 0;
-        fs.writeFileSync(this.path, JSON.stringify(parsedData));
-      }
-    });
+    try {
+      fs.writeFileSync(this.path, "");
+      console.log("File has been deleted");
+    } catch (error) {
+      console.error("Imposible to delete object", error);
+    }
   }
 }
 module.exports = Contenedor;
