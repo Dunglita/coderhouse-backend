@@ -96,6 +96,7 @@ class Contenedor {
       }
     });
   }
+
   deleteAll() {
     try {
       fs.writeFileSync(this.path, "");
