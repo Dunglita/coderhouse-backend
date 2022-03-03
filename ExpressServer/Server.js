@@ -12,12 +12,18 @@ const server = app.listen(port, () => {
 
 app.get("/productos", async (req, res) => {
   res.type("json");
-  res.send(JSON.stringify(await contenedor.getAll(), null, 2));
+  res.send(
+    JSON.stringify(await contenedor.getAll(), null, 2) +
+      `\n \nLink en glitch: \nhttps://ripe-witty-cobweb.glitch.me/productos`
+  );
 });
 
 app.get("/productoRandom", async (req, res) => {
   let products = await contenedor.getAll();
   let indice = Math.floor(Math.random() * products.length);
   res.type("json");
-  res.send(JSON.stringify(products[indice], null, 2));
+  res.send(
+    JSON.stringify(products[indice], null, 2) +
+      `\n \nLink en glitch: \nhttps://ripe-witty-cobweb.glitch.me/productorandom`
+  );
 });
