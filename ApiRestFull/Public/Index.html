@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administracion Productos</title>
+  </head>
+  <body>
+    <h2>Mostrar Productos</h2>
+    <form action="/api/productos/" method="GET">
+      <input type="submit" value="Ver productos" />
+    </form>
+
+    <h2>Buscar Producto</h2>
+    <form action="/api/productos/:id" method="GET">
+      <p>Id del producto: <input type="text" name="id" /></p>
+      <input type="submit" value="Enviar" />
+    </form>
+
+    <h2>Crear Producto</h2>
+    <form action="/api/productos/:id" method="POST">
+      <p>Id del producto: <input type="text" name="id" /></p>
+      <input type="submit" value="Enviar" />
+    </form>
+
+    <h2>I</h2>
+    <form action="/personas/" method="POST">
+      Nombre: <input type="text" name="nombre" /> Apellido:
+      <input type="text" name="apellido" /> Edad:
+      <input type="text" name="edad" />
+      <button>Enviar</button>
+    </form>
+  </body>
+</html>
