@@ -12,23 +12,21 @@
     </form>
 
     <h2>Buscar Producto</h2>
-    <form action="/api/productos/:id" method="GET">
-      <p>Id del producto: <input type="text" name="id" /></p>
-      <input type="submit" value="Enviar" />
+    <form action="/api/productos/id" method="GET">
+      <label>Id del producto</label>
+      <input type="text" id="id" name="id" /><br />
+      <input type="submit" value="Buscar" />
     </form>
 
     <h2>Crear Producto</h2>
-    <form action="/api/productos/:id" method="POST">
-      <p>Id del producto: <input type="text" name="id" /></p>
-      <input type="submit" value="Enviar" />
-    </form>
-
-    <h2>I</h2>
-    <form action="/personas/" method="POST">
-      Nombre: <input type="text" name="nombre" /> Apellido:
-      <input type="text" name="apellido" /> Edad:
-      <input type="text" name="edad" />
-      <button>Enviar</button>
+    <form action="/api/productos/" method="POST">
+      <label>Titulo</label>
+      <input type="text" id="title" name="title" /><br />
+      <label>Precio</label>
+      <input type="text" id="price" name="price" /><br />
+      <label>Link</label>
+      <input type="text" id="thumbnail" name="thumbnail" />
+      <input type="submit" value="Crear" />
     </form>
   </body>
 </html>
