@@ -3,10 +3,18 @@ const Router = express;
 const Contenedor = require("./Contenedor");
 const contenedor = new Contenedor("./productos.txt");
 
+var bodyParser = require("body-parser");
+
 const app = express();
 const router = Router();
 
 const port = 8080;
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 router.use(express.json()); //Se podria ahorrar usando body-parser
 
@@ -37,11 +45,11 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  console.log(req.query);
+  console.log(req.body);
   const producto = {
-    title: req.query.title,
-    price: req.query.price,
-    thumbnail: req.query.thumbnail,
+    title: req.body.title,
+    price: req.body.price,
+    thumbnail: req.body.thumbnail,
   };
   let product = await contenedor.create(producto);
   res.type("json");
