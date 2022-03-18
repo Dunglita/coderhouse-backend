@@ -36,8 +36,6 @@ app.set("view engine", "hbs");
 
 app.set("views", "./views");
 
-const productos = [];
-
 app.get("/", (req, res) => {
   res.render("form");
 });
@@ -53,6 +51,7 @@ app.post("/productos", async (req, res) => {
 });
 
 app.get("/productos", async (req, res) => {
-  let product = JSON.stringify(await contenedor.getAll(), null, 2);
-  res.render("table");
+  let products = await contenedor.getAll();
+  console.log(products);
+  res.render("table", { item: products });
 });
