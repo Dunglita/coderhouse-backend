@@ -8,15 +8,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>cum</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
+      {{#each item}}
+        <tr>
+          <td>{{this.title}}</td>
+          <td>{{this.price}}</td>
+          <td><img
+              src={{this.thumbnail}}
+              alt={{this.title}}
+              width="30"
+              height="30"
+            /></td>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
   <form action="/" method="GET">
-    <input class="btn btn-primary" type="submit" value="Agregar Producto" />
+    <input
+      class="btn btn-primary btn-sm"
+      type="submit"
+      value="Agregar Producto"
+    />
   </form>
 </div>
