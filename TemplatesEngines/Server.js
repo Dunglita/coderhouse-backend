@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const Contenedor = require("./Contenedor");
 const handlebars = require("express-handlebars");
+
 const contenedor = new Contenedor("./productos.txt");
 const app = express();
 
