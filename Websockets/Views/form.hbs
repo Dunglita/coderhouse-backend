@@ -1,0 +1,42 @@
+<div style="width:600px">
+  <h2>Agregar Producto</h2>
+  <form action="/productos" method="POST">
+    <div class="form-group">
+      <label for="title">Titulo</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Enter title"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <label for="price">Precio</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        name="price"
+        placeholder="Enter price"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <label for="thumbnail">Thumbnail</label>
+      <input
+        type="text"
+        class="form-control"
+        id="thumbnail"
+        name="thumbnail"
+        placeholder="Enter thumbnail"
+      />
+    </div>
+    <br />
+    <button type="Submit" class="btn btn-primary">Crear</button>
+  </form>
+  <form action="/productos" method="GET">
+    <input class="btn btn-primary" type="submit" value="Ver Productos" />
+  </form>
+</div>
