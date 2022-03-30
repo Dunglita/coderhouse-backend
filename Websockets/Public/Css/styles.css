@@ -1,0 +1,17 @@
+.main_wrapper {
+  background-color: darkgrey;
+}
+
+.form_container {
+  padding-top: 100px;
+  width: 80vw;
+  margin-left: 10vw;
+  overflow: auto;
+}
+
+.table_container {
+  padding-top: 100px;
+  width: 80%;
+  overflow: auto;
+  margin: auto;
+}
