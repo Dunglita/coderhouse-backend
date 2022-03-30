@@ -1,0 +1,68 @@
+<div class="main_wrapper">
+  <div class="form_container" style="width:600px">
+    <h2>Agregar Producto</h2>
+    <form action="/productos" method="POST">
+      <div class="form-group">
+        <label for="title">Titulo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          placeholder="Enter title"
+        />
+      </div>
+      <br />
+      <div class="form-group">
+        <label for="price">Precio</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          name="price"
+          placeholder="Enter price"
+        />
+      </div>
+      <br />
+      <div class="form-group">
+        <label for="thumbnail">Thumbnail</label>
+        <input
+          type="text"
+          class="form-control"
+          id="thumbnail"
+          name="thumbnail"
+          placeholder="Enter thumbnail"
+        />
+      </div>
+      <br />
+      <button id="addProduct" class="btn btn-primary" type="button">Agregar
+        Producto</button>
+    </form>
+  </div>
+  <h2>Productos</h2>
+  <div class="table_container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Titulo</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each item}}
+          <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.price}}</td>
+            <td><img
+                src={{this.thumbnail}}
+                alt={{this.title}}
+                width="30"
+                height="30"
+              /></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
