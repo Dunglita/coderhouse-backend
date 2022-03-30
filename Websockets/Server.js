@@ -2,15 +2,17 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const Contenedor = require("./Contenedor");
 const handlebars = require("express-handlebars");
+
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 
 const contenedor = new Contenedor("./productos.txt");
 const app = express();
+
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-const port = 3000;
+const PORT = 8080;
 
 app.use(
   bodyParser.urlencoded({
@@ -22,52 +24,49 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-httpServer.listen(port, () => console.log("SERVER ON"));
+const server = httpServer.listen(PORT, () => {
+  console.log(`Server listening on port:${server.address().port}`);
+});
+
+server.on("error", (error) => console.log(`Error en servidor ${error}`));
 
 app.engine(
   "hbs",
   handlebars({
     extname: ".hbs",
-    defaultLayout: "index.hbs",
-    layoyutsDir: __dirname + "/views/layouts",
+    defaultLayout: "Index.hbs",
+    layoyutsDir: __dirname + "/Views",
   })
 );
 
 app.set("view engine", "hbs");
 
-app.set("views", "./views");
+app.set("views", "./Public/Views");
 
-app.get("/", (req, res) => {
-  res.render("form");
+app.get("/", async (req, res) => {
+  let products = await contenedor.getAll();
+  res.render("Main", { item: products });
 });
 
+const mensajes = [];
+
 io.on("connection", (socket) => {
-  console.log("Usuario conectado");
-
-  socket.emit("mi mensaje", "Este es mi mensaje desde el servidor");
-
-  socket.on("notificacion", (data) => {
-    console.log(data);
-  });
+  console.log("Nuevo usuario conectado");
 
   socket.on("mensaje", (data) => {
     mensajes.push({ socketid: socket.id, mensaje: data });
     io.sockets.emit("mensajes", mensajes);
+    console.log(mensajes);
   });
-});
-
-app.post("/productos", async (req, res) => {
-  const producto = {
-    title: req.body.title,
-    price: req.body.price,
-    thumbnail: req.body.thumbnail,
-  };
-  let product = await contenedor.create(producto);
-  res.render("form");
-});
-
-app.get("/productos", async (req, res) => {
-  let products = await contenedor.getAll();
-  console.log(products);
-  res.render("table", { item: products });
+  socket.on("newProduct", async (data) => {
+    const producto = {
+      title: data.title,
+      price: data.price,
+      thumbnail: data.thumbnail,
+    };
+    await contenedor.create(producto);
+    let productList = await contenedor.getAll();
+    io.sockets.emit("productList", productList);
+    console.log(productList);
+  });
 });
