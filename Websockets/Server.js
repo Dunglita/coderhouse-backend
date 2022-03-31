@@ -43,15 +43,11 @@ app.set("view engine", "hbs");
 
 app.set("views", "./Public/Views");
 
-app.get("/", async (req, res) => {
-  let products = await contenedor.getAll();
-  res.render("Main", { item: products });
-});
-
 const mensajes = [];
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   console.log("Nuevo usuario conectado");
+  socket.emit("productList", await contenedor.getAll());
 
   socket.on("mensaje", (data) => {
     mensajes.push({ socketid: socket.id, mensaje: data });
@@ -65,8 +61,6 @@ io.on("connection", (socket) => {
       thumbnail: data.thumbnail,
     };
     await contenedor.create(producto);
-    let productList = await contenedor.getAll();
-    io.sockets.emit("productList", productList);
-    console.log(productList);
+    io.sockets.emit("productList", await contenedor.getAll());
   });
 });
