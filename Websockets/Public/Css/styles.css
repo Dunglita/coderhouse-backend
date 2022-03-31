@@ -1,17 +1,32 @@
 .main_wrapper {
   background-color: darkgrey;
+  padding-left: 10vw;
+  padding-right: 10vw;
 }
 
 .form_container {
   padding-top: 100px;
   width: 80vw;
-  margin-left: 10vw;
   overflow: auto;
 }
-
-.table_container {
+.product_title {
   padding-top: 100px;
-  width: 80%;
-  overflow: auto;
-  margin: auto;
+}
+.chat_title {
+  padding-top: 100px;
+}
+
+.mail {
+  font-weight: bold;
+  color: blue;
+  display: inline;
+}
+.date {
+  color: brown;
+  display: inline;
+}
+.message {
+  font-style: italic;
+  color: green;
+  display: inline;
 }

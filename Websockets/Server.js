@@ -43,24 +43,33 @@ app.set("view engine", "hbs");
 
 app.set("views", "./Public/Views");
 
-const mensajes = [];
+const messages = [];
 
 io.on("connection", async (socket) => {
   console.log("Nuevo usuario conectado");
   socket.emit("productList", await contenedor.getAll());
+  socket.emit("messages", messages);
 
   socket.on("mensaje", (data) => {
-    mensajes.push({ socketid: socket.id, mensaje: data });
+    mensajes.push({ mail: data.mail, date: data.date, message: data.message });
     io.sockets.emit("mensajes", mensajes);
-    console.log(mensajes);
   });
+
   socket.on("newProduct", async (data) => {
     const producto = {
       title: data.title,
       price: data.price,
       thumbnail: data.thumbnail,
     };
+
     await contenedor.create(producto);
-    io.sockets.emit("productList", await contenedor.getAll());
+    setTimeout(async () => {
+      io.sockets.emit("productList", await contenedor.getAll());
+    }, 0.1);
+  });
+
+  socket.on("new-message", (data) => {
+    messages.push(data);
+    io.sockets.emit("messages", messages);
   });
 });

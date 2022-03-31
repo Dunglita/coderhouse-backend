@@ -34,7 +34,7 @@
     <div class="main_wrapper">
       <div class="form_container" style="width: 600px">
         <h2>Agregar Producto</h2>
-        <form action="/productos" method="POST">
+        <form>
           <div class="form-group">
             <label for="title">Titulo</label>
             <input
@@ -73,8 +73,34 @@
           </button>
         </form>
       </div>
-      <h2>Productos</h2>
+      <h2 class="product_title">Productos</h2>
       <div id="table_container"></div>
+      <h2 class="chat_title">Chat</h2>
+      <form>
+        <div class="form-group">
+          <input
+            type="email"
+            id="mail"
+            class="form-control"
+            placeholder="Ingresa tu mail"
+          />
+          <div id="chat_container"></div>
+          <input
+            type="text"
+            id="message"
+            class="form-control"
+            placeholder="Cuéntanos algo..."
+          />
+          <button
+            id="addProduct"
+            class="btn btn-primary"
+            type="button"
+            onclick="return addMessage(this)"
+          >
+            Enviar
+          </button>
+        </div>
+      </form>
     </div>
     <script src="js/main.js"></script>
   </body>
