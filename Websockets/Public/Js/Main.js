@@ -20,16 +20,15 @@ socket.on("mensajes", (msjs) => {
 });
 
 socket.on("productList", (productList) => {
-  console.table(productList);
   makeHtmlTable(productList).then((html) => {
     document.getElementById("table_container").innerHTML = html;
   });
 });
 
-async function makeHtmlTable(productList) {
+async function makeHtmlTable(productos) {
   const respuesta = await fetch("views/table.hbs");
   const plantilla = await respuesta.text();
-  const template = compile(plantilla);
-  const html = template({ productList });
+  const template = Handlebars.compile(plantilla);
+  const html = template({ item: productos });
   return html;
 }
